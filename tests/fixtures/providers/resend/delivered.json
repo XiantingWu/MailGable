@@ -1,0 +1,9 @@
+{
+  "type": "email.delivered",
+  "data": {
+    "created_at": "2026-09-03T12:00:00.000Z",
+    "email_id": "resend-000000000001",
+    "to": ["alice@example.net"]
+  },
+  "svix_id": "svix-00000000000000000000000000000000"
+}

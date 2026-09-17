@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>MailGable</title>
+  <link rel="stylesheet" href="/admin/mail/mail.css?v=20260806-3">
+  <link rel="stylesheet" href="/admin/mail/mail-ready.css?v=20260806-3">
+  <link rel="stylesheet" href="/admin/mail/routing-status.css?v=20260807-4">
+</head>
+<body>
+  <main id="auth-view" class="auth-shell" hidden>
+    <section class="auth-card" aria-labelledby="auth-title">
+      <div class="brand-mark" aria-hidden="true">M</div>
+      <p class="eyebrow">MAILGABLE INFRASTRUCTURE</p>
+      <h1 id="auth-title" data-i18n="adminSignIn">Mail Admin</h1>
+      <p id="auth-description" class="muted">Sign in with the administrator account.</p>
+      <form id="auth-form" novalidate>
+        <label><span data-i18n="adminEmail">Administrator email</span><input id="auth-email" name="email" type="email" autocomplete="username" required></label>
+        <label><span data-i18n="password">Password</span><input id="auth-password" name="password" type="password" autocomplete="current-password" minlength="15" maxlength="128" required></label>
+        <label id="bootstrap-field" hidden><span data-i18n="bootstrapToken">One-time initialization token</span><input id="bootstrap-token" type="password" autocomplete="off"></label>
+        <p id="auth-error" class="error" role="alert" hidden></p>
+        <button id="auth-submit" class="primary full" type="submit">Sign in</button>
+      </form>
+      <div class="auth-foot"><span id="canonical-origin-label">MailGable · dev</span></div>
+    </section>
+  </main>
+
+  <main id="mail-view" class="mail-shell" hidden>
+    <header class="topbar">
+      <div class="top-brand">
+        <button id="menu-toggle" class="icon-button mobile-only" type="button" aria-label="Open navigation" data-i18n-aria="openNavigation">☰</button>
+        <div><p class="eyebrow">MAILGABLE ADMIN</p><h1 data-i18n="mail">Mail</h1></div>
+      </div>
+      <div class="top-actions">
+        <button id="sync-status" class="status-pill" type="button" data-state="unknown" aria-live="polite">Not synced</button>
+        <button id="theme-toggle" class="compact" type="button" aria-label="Toggle dark/light theme" title="Toggle dark/light theme">☀️</button>
+        <button id="refresh-button" class="compact" type="button">Refresh</button>
+        <button id="settings-button" class="compact" type="button">Security</button>
+        <button id="compose-button" class="primary" type="button">Compose</button>
+        <button id="logout-button" class="compact danger" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="Close navigation" data-i18n-aria="closeNavigation" hidden></button>
+      <aside id="sidebar" class="sidebar">
+        <label class="field-label" for="mailbox-filter" data-i18n="from">From identity</label>
+        <select id="mailbox-filter"><option value="">All mailboxes</option></select>
+        <nav class="folders" aria-label="Mail folders" data-i18n-aria="mailFolders">
+          <button class="folder active" data-folder="inbox" type="button"><span>⌂</span><b>Inbox</b><em id="inbox-count"></em></button>
+          <button class="folder" data-folder="sent" type="button"><span>↗</span><b>Sent</b></button>
+          <button class="folder" data-folder="archive" type="button"><span>▤</span><b>Archive</b></button>
+          <button class="folder" data-folder="spam" type="button"><span>✕</span><b>Spam</b></button>
+          <button class="folder" data-folder="trash" type="button"><span>🗑</span><b>Trash</b></button>
+          <button class="folder" data-folder="all" type="button"><span>≡</span><b>All mail</b></button>
+        </nav>
+        <section class="system-card">
+          <button id="routing-sync-button" class="routing-sync-button" type="button"><strong id="routing-status-title">Routing status</strong><span id="routing-status-dot" class="online-dot" data-state="unknown" aria-hidden="true"></span></button>
+          <div id="system-status" class="routing-status">Loading…</div>
+        </section>
+        <div class="shortcuts"><span><kbd>J</kbd>/<kbd>K</kbd> <span data-i18n="shortcutSelect">Select</span></span><span><kbd>C</kbd> <span data-i18n="compose">Compose</span></span><span><kbd>R</kbd> <span data-i18n="reply">Reply</span></span></div>
+      </aside>
+
+      <section class="workspace">
+        <section class="list-pane" aria-label="Message list" data-i18n-aria="messageList">
+          <div class="search-row">
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" autocomplete="off" placeholder="Search sender, subject, or body"></label>
+            <button id="filter-button" class="icon-button" type="button" aria-expanded="false" aria-controls="filter-panel">Filters</button>
+          </div>
+          <div id="filter-panel" class="filter-panel" hidden>
+            <label><input id="filter-unread" type="checkbox"> <span data-i18n="unread">Unread</span></label>
+            <label><input id="filter-replied" type="checkbox"> <span data-i18n="replied">Replied</span></label>
+            <label><input id="filter-attachment" type="checkbox"> <span data-i18n="attachment">Has attachment</span></label>
+            <label><span data-i18n="dateFrom">From</span> <input id="filter-from" type="date"></label>
+            <label><span data-i18n="dateTo">To</span> <input id="filter-to" type="date"></label>
+            <button id="clear-filters" class="text-button" type="button" data-i18n="clear">Clear</button>
+          </div>
+          <div class="list-meta"><span id="list-count">0 conversations</span><span id="list-loading"></span></div>
+          <div id="thread-list" class="thread-list" role="listbox" tabindex="0"></div>
+          <button id="load-more" class="load-more" type="button" hidden>Load more</button>
+        </section>
+
+        <div id="splitter" class="splitter" role="separator" aria-orientation="vertical" tabindex="0"></div>
+
+        <section id="detail-pane" class="detail-pane empty" aria-label="Message detail" data-i18n-aria="messageDetail">
+          <div class="empty-state"><div class="empty-icon">✉</div><h2 data-i18n="select">Select a message</h2><p data-i18n="selectDesc">Message content, attachments, replies, and delivery status appear here.</p></div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="compose-dialog" class="compose-dialog">
+    <form id="compose-form" method="dialog">
+      <header><div><p class="eyebrow">MAILGABLE</p><h2 id="compose-title" data-i18n="composeNew">New message</h2></div><button id="compose-close" class="icon-button" type="button" aria-label="Close" data-i18n-aria="close">×</button></header>
+
+      <div class="compose-grid">
+        <label><span data-i18n="from">From identity</span><select id="compose-from" required></select></label>
+        <label><span data-i18n="to">To</span><input id="compose-to" type="text" placeholder="name@example.com" required></label>
+        <label><span data-i18n="cc">CC</span><input id="compose-cc" type="text" placeholder="Separate multiple addresses with commas" data-i18n-placeholder="multipleAddresses"></label>
+        <label><span data-i18n="bcc">BCC</span><input id="compose-bcc" type="text" placeholder="Optional" data-i18n-placeholder="optional"></label>
+        <label class="wide"><span data-i18n="subject">Subject</span><input id="compose-subject" maxlength="998"></label>
+        <label class="wide"><span data-i18n="body">Body</span><div id="compose-body" class="editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Enter the message body…" data-i18n-data-placeholder="bodyPlaceholder"></div></label>
+        <label class="wide file-field"><span data-i18n="files">Attachments</span><input id="compose-attachments" type="file" multiple><small id="attachment-summary">Each attachment: 5 MB maximum; 8 MB total; 10 files maximum.</small></label>
+      </div>
+      <p class="compose-note" data-i18n="retryNote">After a network error, do not change the message before retrying. The same idempotency key prevents duplicates, and archived messages can also be safely retried after a refresh.</p>
+      <p id="compose-error" class="error" role="alert" hidden></p>
+      <footer><button id="compose-cancel" type="button" data-i18n="cancel">Cancel</button><button id="compose-send" class="primary" type="submit" data-i18n="send">Send</button></footer>
+    </form>
+  </dialog>
+
+  <dialog id="security-dialog" class="compose-dialog">
+    <form id="security-form" method="dialog">
+      <header><div><p class="eyebrow">ACCOUNT SECURITY</p><h2 id="security-title" data-i18n="changePassword">Change administrator password</h2></div><button id="security-close" class="icon-button" type="button" aria-label="Close" data-i18n-aria="close">×</button></header>
+      <div class="compose-grid">
+        <label class="wide"><span data-i18n="currentPassword">Current password</span><input id="current-password" type="password" autocomplete="current-password" required></label>
+        <label class="wide"><span data-i18n="newPassword">New password</span><input id="new-password" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+        <label class="wide"><span data-i18n="confirmPassword">Confirm new password</span><input id="confirm-password" type="password" autocomplete="new-password" minlength="15" maxlength="128" required></label>
+      </div>
+      <p class="compose-note" data-i18n="passwordNote">After a successful change, every administrator session is revoked and must sign in again.</p>
+      <p id="security-error" class="error" role="alert" hidden></p>
+      <footer><button id="logout-all-button" class="danger" type="button" data-i18n="logoutAll">Sign out all devices</button><button id="security-cancel" type="button" data-i18n="cancel">Cancel</button><button id="security-save" class="primary" type="submit" data-i18n="changePasswordButton">Change password</button></footer>
+    </form>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <script type="module" src="/admin/mail/js/app.mjs?v=20260902-1"></script>
+</body>
+</html>

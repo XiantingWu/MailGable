@@ -1,0 +1,10 @@
+{
+  "event": "delivered",
+  "email": "alice@example.net",
+  "message-id": "brevo-000000000001",
+  "ts_event": "2026-09-03T12:00:00+00:00",
+  "ts_epoch": 1785859200,
+  "date": "2026-09-03T12:00:00Z",
+  "tags": ["mailbox:msg-brev-1"],
+  "id": 1001
+}

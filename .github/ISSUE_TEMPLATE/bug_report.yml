@@ -1,0 +1,151 @@
+name: Bug Report
+description: Report a reproducible problem or unexpected defect.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue!
+        > [!IMPORTANT]
+        > If you have discovered a **security vulnerability**, please do NOT file a public issue. Follow [SECURITY.md](https://github.com/XiantingWu/MailGable/blob/main/SECURITY.md) and report it privately.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: A clear and concise summary of the bug.
+      placeholder: Inbound emails with large attachments fail to archive...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Deployment Environment
+      description: Where did you observe the bug?
+      options:
+        - "Local development (wrangler dev)"
+        - "Cloudflare production Worker"
+        - "Other / unsure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Outbound Provider
+      description: Which outbound provider was configured when the bug occurred?
+      options:
+        - "Not provider-related"
+        - "Resend"
+        - "Brevo"
+        - "Cloudflare Email Service"
+        - "Receive-only (no outbound provider)"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / Commit SHA
+      description: Commit SHA, branch, or release version where this bug was observed.
+      placeholder: main (commit abc1234)
+    validations:
+      required: true
+
+  - type: input
+    id: runtime
+    attributes:
+      label: Runtime Environment
+      description: Node.js version, Wrangler version, or workerd runtime environment.
+      placeholder: Node 22.x, Wrangler 4.114.0
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser (UI Issues)
+      description: Browser and version if reporting a Web Administration UI issue.
+      placeholder: Chrome 128, Safari 18, Firefox 130
+    validations:
+      required: false
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      description: Select the primary component affected.
+      options:
+        - "Inbound mail"
+        - "Outbound mail"
+        - "Authentication"
+        - "Attachments"
+        - "Threads"
+        - "Routing sync"
+        - "Resend webhook"
+        - "D1 migrations"
+        - "R2 archive"
+        - "Admin UI"
+        - "Deployment tooling"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Regression
+      description: Did this work in a previous version or commit?
+      options:
+        - "No / Unsure"
+        - "Yes (worked previously)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Configure inbound routing...
+        2. Send an email with attachment...
+        3. Observe the result in Admin UI...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized Logs
+      description: Paste relevant logs or errors. DO NOT INCLUDE SECRETS — remove all API tokens, passwords, webhook secrets, Cloudflare identifiers, and private email addresses.
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Confirmation Checklist
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed secrets, raw personal email, API keys and private identifiers.
+          required: true
+        - label: This is not an undisclosed security vulnerability.
+          required: true

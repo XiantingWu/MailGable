@@ -1,0 +1,70 @@
+name: Feature Request
+description: Propose a new feature, enhancement, or architectural improvement.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe your proposal clearly and detail its use case, architecture, and system impact.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem or workflow gap are you trying to address?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: Describe the practical use case and target scenario.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_behavior
+    attributes:
+      label: Proposed Behavior
+      description: Describe the proposed behavior and functionality in detail.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: What other approaches or workarounds have been considered?
+
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility Considerations
+      description: How does this proposal maintain backward compatibility with existing mailboxes or migrations?
+
+  - type: textarea
+    id: deployment_impact
+    attributes:
+      label: Deployment Impact
+      description: How would this change affect existing deployments, operator steps, or Cloudflare resources?
+    validations:
+      required: true
+
+  - type: textarea
+    id: schema_impact
+    attributes:
+      label: Schema Impact
+      description: Does this require D1 database schema changes or new migrations?
+
+  - type: textarea
+    id: provider_impact
+    attributes:
+      label: Provider Impact
+      description: Impact on Cloudflare Workers, Email Routing, R2 storage, or outbound delivery providers.
+
+  - type: textarea
+    id: security_impact
+    attributes:
+      label: Security & Privacy Impact
+      description: Security, privacy, authentication, or PII considerations.

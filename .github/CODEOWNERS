@@ -1,0 +1,13 @@
+* @XiantingWu
+/.github/ @XiantingWu
+/SECURITY.md @XiantingWu
+/docs/ @XiantingWu
+/migrations/ @XiantingWu
+/scripts/ @XiantingWu
+/src/auth.ts @XiantingWu
+/src/inbound-forwarding.ts @XiantingWu
+/src/resend-policy.ts @XiantingWu
+/src/routing-sync.ts @XiantingWu
+/wrangler.jsonc @XiantingWu
+/package.json @XiantingWu
+/package-lock.json @XiantingWu

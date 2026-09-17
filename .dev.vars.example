@@ -1,0 +1,24 @@
+# Local runtime configuration for `npm run dev`.
+# Copy to `.dev.vars` (gitignored) and fill in values. Only runtime variables
+# belong here. Setup-only operator credentials live in `ops.env.example`.
+
+ADMIN_EMAIL="admin@example.com"
+MAIL_DOMAIN="example.com"
+MAIL_DISPLAY_NAME="MailGable"
+MAILBOX_ADDRESSES=""
+INBOUND_FORWARD_TO=""
+AUTO_BCC_ADDRESSES=""
+AUTO_BCC_REQUIRED="false"
+PASSWORD_ITERATIONS="8000"
+SESSION_HOURS="12"
+SESSION_IDLE_MINUTES="60"
+MESSAGE_RETENTION_DAYS="0"
+TRASH_RETENTION_DAYS="30"
+LOG_LEVEL="info"
+
+# Runtime secrets (local stand-ins for `wrangler secret put`):
+AUTH_PEPPER=""
+ADMIN_BOOTSTRAP_TOKEN=""
+RESEND_API_KEY=""
+RESEND_WEBHOOK_SECRET=""
+CLOUDFLARE_ROUTING_READ_TOKEN=""

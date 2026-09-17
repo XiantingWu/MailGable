@@ -1,0 +1,39 @@
+.system-card{margin-top:auto;background:var(--panel);box-shadow:0 2px 8px rgba(20,24,32,.04);overflow:hidden}
+.system-card .routing-sync-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;border:0;border-radius:8px;background:transparent;padding:2px 0;color:inherit;text-align:left}
+.system-card .routing-sync-button:hover{background:var(--panel-2)}
+.system-card .routing-sync-button:disabled{cursor:progress;opacity:.72}
+.system-card .routing-sync-button #routing-status-title{font-size:12px}
+.system-card .routing-status{display:grid;margin-top:10px;max-height:min(38vh,320px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:2px}
+.system-card .routing-section-label{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0 5px;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.system-card .routing-section-label:not(:first-child){margin-top:4px;border-top:1px solid var(--line);padding-top:10px}
+.routing-section-count{display:inline-grid;min-width:20px;height:20px;place-items:center;border:1px solid var(--line);border-radius:999px;background:var(--panel-2);padding:0 6px;color:var(--muted);font-size:9px;letter-spacing:0}
+.system-card .routing-mailbox-list,.system-card .routing-backup-list{display:grid;min-width:0}
+.system-card .routing-route{display:grid;gap:2px;border-top:1px solid var(--line);padding:8px 0;font-size:11px;min-width:0}
+.system-card .routing-route:first-child{border-top:0}
+.system-card .routing-route-main{display:flex;align-items:center;gap:7px;min-width:0}
+.routing-route-dot{flex:0 0 7px;width:7px;height:7px;border-radius:50%;background:#8b929d;box-shadow:0 0 0 3px rgba(139,146,157,.12)}
+.routing-route-dot[data-state="active"]{background:#2d9a57;box-shadow:0 0 0 3px rgba(45,154,87,.12)}
+.routing-route-dot[data-state="send_only"],.routing-route-dot[data-state="receive_only"]{background:#4e7ca5;box-shadow:0 0 0 3px rgba(78,124,165,.12)}
+.routing-route-dot[data-state="attention"]{background:#c88722;box-shadow:0 0 0 3px rgba(200,135,34,.14)}
+.routing-route-dot[data-state="failed"]{background:var(--danger);box-shadow:0 0 0 3px color-mix(in srgb,var(--danger) 14%,transparent)}
+.routing-address{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:650}
+.routing-route-status{padding-left:14px;color:var(--muted);font-size:10px;line-height:1.35;overflow-wrap:anywhere}
+.routing-backup-route .routing-address{font-weight:600}
+.routing-empty{margin:4px 0 8px;color:var(--muted);font-size:11px;line-height:1.45}
+.routing-error{color:var(--danger)}
+.online-dot[data-state="unknown"]{background:#8b929d;box-shadow:0 0 0 3px rgba(139,146,157,.13)}
+.online-dot[data-state="syncing"]{background:#4e7ca5;box-shadow:0 0 0 3px rgba(78,124,165,.14);animation:routing-pulse 1.1s ease-in-out infinite alternate}
+.online-dot[data-state="attention"]{background:#c88722;box-shadow:0 0 0 3px rgba(200,135,34,.14)}
+.online-dot[data-state="failed"]{background:var(--danger);box-shadow:0 0 0 3px color-mix(in srgb,var(--danger) 14%,transparent)}
+button.status-pill{border:0;cursor:pointer;font:inherit}
+button.status-pill:hover{background:var(--panel-2)}
+button.status-pill:disabled{cursor:progress;opacity:.72}
+.status-pill[data-state="success"]{color:#287947;background:color-mix(in srgb,#2d9a57 8%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,#2d9a57 20%,transparent)}
+.status-pill[data-state="syncing"]{color:#3e668a;background:color-mix(in srgb,#4e7ca5 9%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,#4e7ca5 22%,transparent)}
+.status-pill[data-state="attention"]{color:#9a6515;background:color-mix(in srgb,#c88722 9%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,#c88722 22%,transparent)}
+.status-pill[data-state="failed"]{color:var(--danger);background:color-mix(in srgb,var(--danger) 7%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--danger) 20%,transparent)}
+@keyframes routing-pulse{from{opacity:.58}to{opacity:1}}
+@media(max-width:1000px){.system-card .routing-status{max-height:42vh}}
+@media(prefers-reduced-motion:reduce){.online-dot[data-state="syncing"]{animation:none}}
+
+:root[data-theme="dark"] .system-card{box-shadow:none}:root[data-theme="dark"] .status-pill[data-state="success"]{color:#7fd39c}:root[data-theme="dark"] .status-pill[data-state="syncing"]{color:#8dbce4}:root[data-theme="dark"] .status-pill[data-state="attention"]{color:#e5b75e}

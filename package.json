@@ -1,0 +1,62 @@
+{
+  "name": "mailgable",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XiantingWu/MailGable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XiantingWu/MailGable/issues"
+  },
+  "packageManager": "npm@10.9.8",
+  "type": "module",
+  "engines": {
+    "node": ">=22 <23",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.jsonc",
+    "setup": "node scripts/setup.mjs",
+    "setup:deploy": "node scripts/setup.mjs --deploy-only",
+    "setup:migrate": "node scripts/setup.mjs --migrate-only",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/run-tests.mjs && node scripts/verify-migration.mjs",
+    "test:worker": "vitest run",
+    "test:e2e": "playwright test",
+    "screenshots": "node scripts/screenshots.mjs",
+    "check": "npm run check:core && npm run test:worker",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local --config wrangler.jsonc",
+    "db:migrate:remote": "node scripts/db-remote.mjs migrate",
+    "setup:remove-bootstrap": "node scripts/setup.mjs --remove-bootstrap",
+    "check:core": "node scripts/refresh-env-types.mjs --check && tsc --noEmit && node scripts/run-tests.mjs && node scripts/verify-migration.mjs && wrangler deploy --dry-run --config wrangler.jsonc --outdir .wrangler-dry-run/dev && node scripts/verify-attribution.mjs && node scripts/verify-public-docs.mjs && node scripts/verify-release-truth.mjs && node scripts/verify-provider-configs.mjs && node scripts/verify-workflows.mjs && node scripts/verify-operator-runner.mjs",
+    "check:release": "node scripts/verify-release-truth.mjs --single-main",
+    "configure": "node scripts/configure.mjs",
+    "credentials:status": "node scripts/credentials.mjs status",
+    "credentials:apply": "node scripts/credentials.mjs apply",
+    "provider:set": "node scripts/provider.mjs set",
+    "provider:remove": "node scripts/provider.mjs remove",
+    "provider:status": "node scripts/provider.mjs status",
+    "test:provider-contracts": "node --test tests/providers.test.mjs",
+    "check:provider-configs": "node scripts/verify-provider-configs.mjs",
+    "credentials:check": "node scripts/credentials.mjs check",
+    "credentials:rotate": "node scripts/credentials.mjs rotate",
+    "credentials:recover": "node scripts/credentials.mjs recover",
+    "provider:recover": "node scripts/provider.mjs recover"
+  },
+  "dependencies": {
+    "postal-mime": "^2.7.5"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.1.9",
+    "@playwright/test": "^1.62.1",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.11",
+    "wrangler": "^4.131.2",
+    "yaml": "^2.9.1"
+  },
+  "overrides": {
+    "undici": "7.29.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "event": "hardBounce",
+  "email": "bob@example.net",
+  "message-id": "brevo-000000000002",
+  "ts_event": "2026-09-03T13:00:00+00:00",
+  "tags": ["mailbox:msg-brev-2"],
+  "id": 1002
+}

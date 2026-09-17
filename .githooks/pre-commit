@@ -1,0 +1,30 @@
+#!/bin/sh
+set -eu
+
+ALLOWED_NAME="XiantingWu"
+ALLOWED_EMAIL="319609216+XiantingWu@users.noreply.github.com"
+
+fail() {
+  echo "pre-commit: ATTRIBUTION BLOCKER: $1" >&2
+  exit 1
+}
+
+NAME="$(git config --local --get user.name || true)"
+EMAIL="$(git config --local --get user.email || true)"
+USECONFIGONLY="$(git config --local --get user.useConfigOnly || true)"
+
+[ "$NAME" = "$ALLOWED_NAME" ] || fail "user.name must be '$ALLOWED_NAME' (got '$NAME')"
+[ "$EMAIL" = "$ALLOWED_EMAIL" ] || fail "user.email must be '$ALLOWED_EMAIL' (got '$EMAIL')"
+[ "$USECONFIGONLY" = "true" ] || fail "user.useConfigOnly must be 'true' (got '$USECONFIGONLY')"
+
+AUTHOR_IDENT="$(git var GIT_AUTHOR_IDENT)"
+COMMITTER_IDENT="$(git var GIT_COMMITTER_IDENT)"
+
+echo "$AUTHOR_IDENT" | grep -q "^$ALLOWED_NAME <$ALLOWED_EMAIL> " || fail "GIT_AUTHOR_IDENT is not '$ALLOWED_NAME <$ALLOWED_EMAIL>'"
+echo "$COMMITTER_IDENT" | grep -q "^$ALLOWED_NAME <$ALLOWED_EMAIL> " || fail "GIT_COMMITTER_IDENT is not '$ALLOWED_NAME <$ALLOWED_EMAIL>'"
+
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
+  node scripts/verify-attribution.mjs --head-only
+fi
+
+exit 0

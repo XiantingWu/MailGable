@@ -1,0 +1,9 @@
+{
+  "mode": "production",
+  "worker_name": "my-mailbox",
+  "mail_domain": "example.com",
+  "admin_email": "admin@example.com",
+  "app_origin": "https://mail.example.com",
+  "cloudflare_zone_id": "",
+  "outbound_provider": "none"
+}

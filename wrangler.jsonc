@@ -1,0 +1,55 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mailgable-dev",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mailgable-db",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MAIL_R2",
+      "bucket_name": "mailgable-r2"
+    }
+  ],
+  "vars": {
+    "ADMIN_EMAIL": "admin@example.com",
+    "MAIL_DOMAIN": "example.com",
+    "MAIL_WORKER_NAME": "mailgable-dev",
+    "CLOUDFLARE_ZONE_ID": "00000000000000000000000000000000",
+    "MAIL_DISPLAY_NAME": "MailGable",
+    "APP_ORIGIN": "",
+    "MAILBOX_ADDRESSES": "",
+    "INBOUND_FORWARD_TO": "",
+    "AUTO_BCC_ADDRESSES": "",
+    "AUTO_BCC_REQUIRED": "false",
+    "SESSION_HOURS": "12",
+    "SESSION_IDLE_MINUTES": "60",
+    "PASSWORD_ITERATIONS": "8000",
+    "MESSAGE_RETENTION_DAYS": "0",
+    "TRASH_RETENTION_DAYS": "30",
+    "LOG_LEVEL": "info",
+    "OUTBOUND_PROVIDER": "none"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "triggers": {
+    "crons": ["17 4 * * *"]
+  }
+}
